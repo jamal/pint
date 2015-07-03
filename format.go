@@ -5,7 +5,7 @@ import (
 	"net/mail"
 )
 
-type FormatHandler func(string) (string, *ErrValidate)
+type FormatHandler func(string) (string, error)
 
 var formatHandlers = map[string]FormatHandler{
 	"email": formatEmail,
@@ -19,7 +19,7 @@ func RegisterHandler(name string, handler FormatHandler) {
 	formatHandlers[name] = handler
 }
 
-func formatEmail(val string) (string, *ErrValidate) {
+func formatEmail(val string) (string, error) {
 	address, err := mail.ParseAddress(val)
 	if err != nil {
 		return "", &ErrValidate{fmt.Sprintf(`"%v" is not a valid email address`, val)}

@@ -9,15 +9,15 @@ import (
 // Error() format should only be used internally. Use ErrValidate.String() for
 // an error that can be returned to the client.
 type ErrValidate struct {
-	s string
+	Description string
 }
 
 func (e *ErrValidate) Error() string {
-	return "pint.Validate: " + e.s
+	return "pint.Validate: " + e.Description
 }
 
 func (e *ErrValidate) String() string {
-	return e.s
+	return e.Description
 }
 
 func validateInt(val int64, field field) error {
